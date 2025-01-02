@@ -5,9 +5,9 @@
 #include <unistd.h>
 #include <errno.h>
 
-//#define SERVER_IP "0.0.0.0" //ip du proxy
+#define SERVER_IP "0.0.0.0" //ip du proxy
 //#define SERVER_IP "192.168.1.166"
-#define SERVER_IP "192.168.1.48"
+//#define SERVER_IP "192.168.1.48"
 #define SERVER_PORT 65001 //proxy
 #define CLIENT_PORT 0
 #define BUFFER_SIZE 1024

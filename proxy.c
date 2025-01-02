@@ -7,7 +7,7 @@
 #include <netinet/udp.h>
 
 #define PROXY_PORT 65001          // Port du proxy
-#define SERVER_IP "192.168.1.166" // IP du serveur cible
+#define SERVER_IP "192.168.1.48" // IP du serveur cible
 #define SERVER_PORT 65000         // Port du serveur cible
 #define BUFFER_SIZE 1024          // Taille du tampon
 
