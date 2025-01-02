@@ -47,7 +47,7 @@ int main() {
     while (1) {
         // Lire un message depuis l'utilisateur
         printf("Entrez un message : ");
-        fgets(buffer, BUFFER_SIZE, stdin);
+    	fgets(buffer, BUFFER_SIZE, stdin);
 
         // Supprimer le caractère de saut de ligne
         buffer[strcspn(buffer, "\n")] = '\0';
@@ -70,7 +70,7 @@ int main() {
 
         // Réception de la réponse du serveur
         socklen_t addr_len = sizeof(server_addr);
-        int recv_len = recvfrom(sockfd, buffer, BUFFER_SIZE, 0,
+        /*int recv_len = recvfrom(sockfd, buffer, BUFFER_SIZE, 0,
                                 (struct sockaddr*)&server_addr, &addr_len);
         if (recv_len < 0) {
             perror("Erreur de réception");
@@ -80,6 +80,7 @@ int main() {
 
         buffer[recv_len] = '\0';
         printf("Réponse du serveur : %s\n", buffer);
+		*/
     }
 
     close(sockfd);

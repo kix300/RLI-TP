@@ -29,7 +29,7 @@ unsigned short checksum(void *b, int len) {
 
 int main() {
 	int recv_sock;
-	struct sockaddr_in proxy_addr, client_addr, server_addr, save_client_addr;
+	struct sockaddr_in proxy_addr, client_addr, server_addr;
 	char buffer[BUFFER_SIZE];
 	socklen_t addr_len = sizeof(struct sockaddr_in);
 
@@ -68,7 +68,6 @@ int main() {
 
 		printf("Message reçu du client : %s\n", buffer);
 
-		save_client_addr = client_addr; // on save l'ip du client
 		// Étape 3 : Analyse de la trame
 		char client_ip[INET_ADDRSTRLEN];
 		inet_ntop(AF_INET, &(client_addr.sin_addr), client_ip, INET_ADDRSTRLEN);
