@@ -39,7 +39,7 @@ int main() {
 		exit(EXIT_FAILURE);
 	}
 
-	// Liaison de la socket au port du proxy
+	// Initialisation de l'adresse du proxy
 	memset(&proxy_addr, 0, sizeof(proxy_addr));
 	proxy_addr.sin_family = AF_INET;
 	proxy_addr.sin_addr.s_addr = INADDR_ANY;
@@ -50,6 +50,12 @@ int main() {
 		close(recv_sock);
 		exit(EXIT_FAILURE);
 	}
+
+	// Initialisation de l'adresse du serveur
+	memset(&server_addr, 0, sizeof(server_addr));
+	server_addr.sin_family = AF_INET;
+	server_addr.sin_addr.s_addr = inet_addr(SERVER_IP);
+	server_addr.sin_port = htons(SERVER_PORT);
 
 	printf("Proxy en attente d'un message sur le port %d\n", PROXY_PORT);
 
@@ -105,12 +111,7 @@ int main() {
 	// Calcul du checksum de l'en-tête IP
 	ip_header->check = checksum(ip_header, sizeof(struct iphdr));
 	*/
-		// Étape 5 : Envoi de la trame modifiée au serveur
-		memset(&server_addr, 0, sizeof(server_addr));
-		server_addr.sin_family = AF_INET;
-		server_addr.sin_addr.s_addr = inet_addr(SERVER_IP);
-		server_addr.sin_port = htons(SERVER_PORT);
-
+		//Envoi de le message au server
 		if (sendto(recv_sock, buffer, strlen(buffer),0,
 			 (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
 			perror("Erreur d'envoi au serveur");
@@ -118,14 +119,16 @@ int main() {
 			exit(EXIT_FAILURE);
 		}
 
-		printf("Message transmis au serveur avec l'IP source modifiée.\n");
+		printf("Message transmis au serveur.\n");
 
+		//Recois le message de confirmation
 		memset(buffer, 0, BUFFER_SIZE);
 		recv_len = recvfrom(recv_sock, buffer, BUFFER_SIZE, 0,
 					  (struct sockaddr*)&server_addr, &addr_len);
 		if (recv_len < 0)
 			perror("Erreur de réception");
 
+		// Envoi du message au client
 		if (sendto(recv_sock, buffer, strlen(buffer),0,
 			 (struct sockaddr *)&client_addr, sizeof(client_addr)) < 0) {
 			perror("Erreur d'envoi au serveur");

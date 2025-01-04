@@ -7,6 +7,7 @@
 #define SERVER_PORT 65000
 #define BUFFER_SIZE 1024
 
+//On regarde si l'ip est dans la white liste;
 int	check_white_list(char *ip)
 {
 	int check;
